@@ -27,6 +27,7 @@ lazy val commonSettings = Seq(
     val jacksonVersion = "2.10.0"
 
     Seq(
+      "org.mongodb.scala" %% "mongo-scala-driver" % "4.2.3",
       "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
       "com.typesafe.akka" %% "akka-stream" % akkaVersion,
       "com.typesafe.akka" %% "akka-actor" % akkaVersion,
@@ -150,7 +151,6 @@ lazy val ports = {
 ThisBuild / credentials += Credentials(new File("credentials.properties"))
 
 scalafmtOnCompile in ThisBuild := true
-
 
 addCommandAlias(
   "validate",

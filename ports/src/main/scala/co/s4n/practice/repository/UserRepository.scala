@@ -1,35 +1,44 @@
 package co.s4n.practice.repository
 
-import cats.data.EitherT
-import monix.eval.Task
+//import cats.data.EitherT
+//import scala.util.{Success, Failure}
+//import monix.eval.Task
 import co.s4n.practice.domain._
+import org.mongodb.scala._
+//import org.mongodb.scala.model.Aggregates._
+import org.mongodb.scala.model.Filters._
+//import org.mongodb.scala.model.Projections._
+import org.mongodb.scala.result.InsertOneResult
+//import org.mongodb.scala.model.Sorts._
+//import org.mongodb.scala.model.Updates._
+//import org.mongodb.scala.model._
+//import scala.concurrent._
+//import ExecutionContext.Implicits.global
+//import org.mongodb.scala.bson.codecs._
+//import com.mongodb.reactivestreams.client.MongoClient
+//import com.mongodb.reactivestreams.client.MongoCollection
 
 class UserRepository() {
   @SuppressWarnings(Array("org.wartremover.warts.All"))
-  var db: List[User] = {
+  /*var xdb: List[User] = {
     List(
       User(1, "Nicolas1", "mail1"),
       User(2, "Nicolas2", "mail2")
     )
+  }*/
+  val uri =
+    "mongodb+srv://root:2021@cluster0.4h8bp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  //System.setProperty("org.mongodb.async.type", "netty")
+  val client: MongoClient = MongoClient(uri)
+  val db: MongoDatabase = client.getDatabase("User")
+  val collection: MongoCollection[Document] = db.getCollection("User")
+
+  def findUser(userId: Int): SingleObservable[Document] = {
+    collection.find(equal("id", userId)).first()
   }
 
-  def findUser(userId: Int): EitherT[Task, Int, User] = {
-    EitherT(
-      Task.now {
-        val user = db.find(us => us.id == userId)
-        user.map(Right(_)).getOrElse(Left(0))
-      }
-    )
-  }
-
-  def allUsers(): Task[List[User]] = {
-    Task.now(db)
-  }
-
-  def createUser(user: User): Task[List[User]] = {
-    Task.now {
-      db = db :+ user
-      db
-    }
+  def createUser(user: User): SingleObservable[InsertOneResult] = {
+    val doc = Document("id" -> user.id, "name" -> user.name, "cel" -> user.cel)
+    collection.insertOne(doc)
   }
 }

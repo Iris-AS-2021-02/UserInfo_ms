@@ -1,10 +1,10 @@
 package co.s4n.practice.domain
 
-import cats.data.EitherT
-import monix.eval.Task
+import org.mongodb.scala.SingleObservable
+import com.mongodb.client.result.InsertOneResult
+import org.mongodb.scala._
 
 trait UserAdapter {
-  def findUser(userId: Int): EitherT[Task, Int, User]
-  def allUsers(): Task[List[User]]
-  def createUser(user: User): Task[List[User]]
+  def findUser(userId: Int): SingleObservable[Document]
+  def createUser(user: User): SingleObservable[InsertOneResult]
 }
