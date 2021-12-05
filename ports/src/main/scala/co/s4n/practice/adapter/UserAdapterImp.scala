@@ -5,6 +5,7 @@ import co.s4n.practice.domain._
 import co.s4n.practice.repository.{UserRepository}
 import org.mongodb.scala.result.InsertOneResult
 import org.mongodb.scala._
+import com.mongodb.client.result.UpdateResult
 
 class UserAdapterImp extends UserAdapter {
   implicit val system = ActorSystem()
@@ -17,5 +18,9 @@ class UserAdapterImp extends UserAdapter {
 
   override def createUser(user: User): SingleObservable[InsertOneResult] = {
     userRepository.createUser(user)
+  }
+
+  override def updateUser(user: User): SingleObservable[UpdateResult] = {
+    userRepository.updateUser(user)
   }
 }
