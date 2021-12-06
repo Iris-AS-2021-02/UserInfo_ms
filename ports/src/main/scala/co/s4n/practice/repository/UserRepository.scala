@@ -34,7 +34,7 @@ class UserRepository() {
   val collection: MongoCollection[Document] = db.getCollection("User")
 
   def findUser(userId: Int): SingleObservable[Document] = {
-    collection.find(equal("cel", userId)).first()
+    collection.find(equal("id", userId)).first()
   }
 
   def createUser(user: User): SingleObservable[InsertOneResult] = {
@@ -43,7 +43,7 @@ class UserRepository() {
   }
   
   def updateUser(user: User): SingleObservable[UpdateResult] = {
-    val doc = Document("id" -> user.id, "name" -> user.name, "cel" -> user.cel)
+    val doc = Document("id" -> user.id, "name" -> user.name, "about" -> user.about, "cel" -> user.cel)
     collection.updateOne(equal("id",user.id),doc)
   }
 }
