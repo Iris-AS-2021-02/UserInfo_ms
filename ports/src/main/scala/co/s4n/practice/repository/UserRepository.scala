@@ -34,11 +34,11 @@ class UserRepository() {
   val collection: MongoCollection[Document] = db.getCollection("User")
 
   def findUser(userId: Int): SingleObservable[Document] = {
-    collection.find(equal("id", userId)).first()
+    collection.find(equal("cel", userId)).first()
   }
 
   def createUser(user: User): SingleObservable[InsertOneResult] = {
-    val doc = Document("id" -> user.id, "name" -> user.name, "cel" -> user.cel)
+    val doc = Document("id" -> user.id, "name" -> user.name, "about" -> user.about ,"cel" -> user.cel)
     collection.insertOne(doc)
   }
   
