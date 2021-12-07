@@ -10,7 +10,7 @@ import org.mongodb.scala.model.Filters._
 //import org.mongodb.scala.model.Projections._
 import org.mongodb.scala.result.{InsertOneResult, UpdateResult}
 //import org.mongodb.scala.model.Sorts._
-//import org.mongodb.scala.model.Updates._
+import org.mongodb.scala.model.Updates._
 //import org.mongodb.scala.model._
 //import scala.concurrent._
 //import ExecutionContext.Implicits.global
@@ -45,11 +45,29 @@ class UserRepository() {
     collection.insertOne(doc)
   }
 
-  def updateUser(user: User): SingleObservable[UpdateResult] = {
-    val doc = Document("id" -> user.id,
+  def updateUser1(user: User): SingleObservable[UpdateResult] = {
+    /*val doc = Document("id" -> user.id,
                        "name" -> user.name,
                        "about" -> user.about,
-                       "cel" -> user.cel)
-    collection.updateOne(equal("id", user.id), doc)
+                       "cel" -> user.cel)*/
+    val res = collection.updateOne(equal("id", user.id), set("name", user.name))
+    res
+  }
+  def updateUser2(user: User): SingleObservable[UpdateResult] = {
+    /*val doc = Document("id" -> user.id,
+                       "name" -> user.name,
+                       "about" -> user.about,
+                       "cel" -> user.cel)*/
+    val res =
+      collection.updateOne(equal("id", user.id), set("about", user.about))
+    res
+  }
+  def updateUser3(user: User): SingleObservable[UpdateResult] = {
+    /*val doc = Document("id" -> user.id,
+                       "name" -> user.name,
+                       "about" -> user.about,
+                       "cel" -> user.cel)*/
+    val res = collection.updateOne(equal("id", user.id), set("cel", user.cel))
+    res
   }
 }

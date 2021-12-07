@@ -20,7 +20,15 @@ class UserAdapterImp extends UserAdapter {
     userRepository.createUser(user)
   }
 
-  override def updateUser(user: User): SingleObservable[UpdateResult] = {
-    userRepository.updateUser(user)
+  override def updateUser1(user: User): SingleObservable[UpdateResult] = {
+    userRepository.updateUser1(user)
+  }
+
+  override def updateUser2(user: User): SingleObservable[UpdateResult] = {
+    userRepository.updateUser2(user)
+  }
+
+  override def updateUser3(user: User): SingleObservable[UpdateResult] = {
+    userRepository.updateUser3(user)
   }
 }
