@@ -136,7 +136,7 @@ lazy val ports = {
                    AshScriptPlugin)
     .settings(
       commonSettings,
-      name := "microservice-ports",
+      name := "iris_userinfo_ms",
       organization := "co.s4n.practice",
       mainClass in (Compile, run) := Option("co.s4n.practice.Main"),
       mainClass in assembly := Some("co.s4n.practice.Main"),
