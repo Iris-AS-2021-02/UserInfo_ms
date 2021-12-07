@@ -8,7 +8,7 @@ import org.mongodb.scala._
 //import org.mongodb.scala.model.Aggregates._
 import org.mongodb.scala.model.Filters._
 //import org.mongodb.scala.model.Projections._
-import org.mongodb.scala.result.{InsertOneResult,UpdateResult}
+import org.mongodb.scala.result.{InsertOneResult, UpdateResult}
 //import org.mongodb.scala.model.Sorts._
 //import org.mongodb.scala.model.Updates._
 //import org.mongodb.scala.model._
@@ -38,12 +38,18 @@ class UserRepository() {
   }
 
   def createUser(user: User): SingleObservable[InsertOneResult] = {
-    val doc = Document("id" -> user.id, "name" -> user.name, "about" -> user.about ,"cel" -> user.cel)
+    val doc = Document("id" -> user.id,
+                       "name" -> user.name,
+                       "about" -> user.about,
+                       "cel" -> user.cel)
     collection.insertOne(doc)
   }
-  
+
   def updateUser(user: User): SingleObservable[UpdateResult] = {
-    val doc = Document("id" -> user.id, "name" -> user.name, "about" -> user.about, "cel" -> user.cel)
-    collection.updateOne(equal("id",user.id),doc)
+    val doc = Document("id" -> user.id,
+                       "name" -> user.name,
+                       "about" -> user.about,
+                       "cel" -> user.cel)
+    collection.updateOne(equal("id", user.id), doc)
   }
 }

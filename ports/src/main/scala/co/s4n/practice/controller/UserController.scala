@@ -48,14 +48,14 @@ class UserController extends Logger {
           }
         }
       },
-      put{
-        path("user"){ 
-          entity(as[User]){
+      put {
+        path("user") {
+          entity(as[User]) {
             request =>
               val query = new UpdateUserQ(userAdapterimp)
               val queryTask = query.query(request)
-              val result= queryTask.head()
-              onComplete(result){
+              val result = queryTask.head()
+              onComplete(result) {
                 case Success(users) => {
                   complete(HttpEntity(ContentTypes.`application/json`,
                                       request.asJson.noSpaces))
